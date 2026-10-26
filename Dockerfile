@@ -8,8 +8,8 @@ RUN rm -f /etc/apt/sources.list /etc/apt/sources.list.d/* \
         > /etc/apt/sources.list.d/snapshot.list \
     && apt-get update \
     && apt-get install --yes --no-install-recommends \
-        fonts-roboto \
-        fonts-adobe-sourcesans3 \
+        fonts-liberation \
+        fonts-noto-cjk \
         make \
         python3-pymupdf \
     && rm -rf /var/lib/apt/lists/*

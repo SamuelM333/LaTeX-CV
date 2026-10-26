@@ -2,16 +2,16 @@
   "latex-workshop.latex.build.fromFolder": ".",
   "latex-workshop.latex.build.enableMagicComments": false,
   "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build",
-  "latex-workshop.latex.recipe.default": "latexmk (Awesome CV)",
+  "latex-workshop.latex.recipe.default": "latexmk (CV)",
   "latex-workshop.latex.recipes": [
     {
-      "name": "latexmk (Awesome CV)",
-      "tools": ["awesome-cv-latexmk"]
+      "name": "latexmk (CV)",
+      "tools": ["cv-latexmk"]
     }
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "awesome-cv-latexmk",
+      "name": "cv-latexmk",
       "command": "latexmk",
       "args": ["%DOC_EXT%"],
       "cwd": "%WORKSPACE_FOLDER%"
