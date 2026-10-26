@@ -1,0 +1,190 @@
+%!TEX TS-program = lualatex
+%!TEX encoding = UTF-8 Unicode
+% Résumé of Samuel Murillo: a LaTeX replica of the Google Docs version.
+% Build from the repository root with: latexmk current-cv.tex
+%
+% Lengths were measured from the Google Docs export (US Letter, Arial).
+% Vertical gaps are baseline-to-baseline.
+
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper, hmargin=72.3pt, top=74.9pt, bottom=36pt]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{eso-pic}
+\usepackage[normalem]{ulem}
+\usepackage[hidelinks]{hyperref}
+
+% Liberation Sans is metric-compatible with Arial, so lines wrap like the
+% original. Google Docs only stretches spaces, never shrinks them, and does not
+% kern, hyphenate or add extra space after full stops.
+\setmainfont{Liberation Sans}[WordSpace={1,4,0}, Kerning=Off]
+\newfontfamily\checkfont{Noto Sans CJK JP Bold}
+\frenchspacing
+\hyphenpenalty=10000
+\tolerance=10000
+
+\definecolor{heading}{HTML}{353744}
+\definecolor{subtitle}{HTML}{434343}
+\definecolor{secondary}{HTML}{666666}
+\definecolor{bar}{HTML}{5E5E5E}
+
+\hypersetup{pdftitle={Samuel Murillo - Computer Engineer}, pdfauthor={Samuel Murillo}}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% Baselines are always exactly \baselineskip apart, plus any explicit gap
+\lineskiplimit=-\maxdimen
+\lineskip=0pt
+\newcommand{\gap}[1]{\par\vspace{\dimexpr #1-13.5pt\relax}}
+
+% Grey bar at the top of every page
+\AddToShipoutPictureBG{%
+  \AtPageUpperLeft{\put(73.5bp,-55.8bp){\color{bar}\rule{468bp}{5.3bp}}}%
+}
+
+% Photo cropped to 76.9x81.4pt with a 2pt grey border
+\newcommand{\photo}[1]{%
+  \AddToShipoutPictureFG*{\AtPageUpperLeft{\put(461.3bp,-162.9bp){%
+    \setlength{\fboxsep}{0pt}\setlength{\fboxrule}{2bp}%
+    \fcolorbox{secondary}{white}{%
+      \includegraphics[width=76.9bp, height=81.4bp, trim=63.4 0 63.4 0, clip]{#1}}%
+  }}}%
+}
+
+
+%-------------------------------------------------------------------------------
+% CONTENT MACROS
+%-------------------------------------------------------------------------------
+\newcommand{\link}[2]{\href{#1}{\uline{#2}}}
+
+% [#1]: gap from the previous baseline, #2: title
+\newcommand{\cvsection}[2][26.4pt]{%
+  \gap{#1}{\fontsize{14}{0}\selectfont\bfseries\color{heading}#2}%
+}
+
+% #1: title, #2: organization, #3: dates, #4: description
+\newcommand{\cventry}[4]{%
+  \gap{24.6pt}{\fontsize{12}{0}\selectfont
+    \textbf{\color{heading}#1} \textit{\color{secondary}- #2}}%
+  \gap{16.8pt}{\fontsize{10}{0}\selectfont\color{secondary}#3}%
+  \gap{16.7pt}#4\par
+}
+
+% Two-column checklist, as in the Google Docs table
+\newcommand{\checkitem}[1]{%
+  \hangindent=18pt\makebox[18pt][l]{\checkfont ✓}#1}
+\newcolumntype{C}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\rowgap}{\\\noalign{\vskip 10.55pt}}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+\fontsize{11}{13.5}\selectfont
+\photo{resume/profile}
+
+%-------------------------------------------------------------------------------
+%	HEADER
+%-------------------------------------------------------------------------------
+{\fontsize{20}{0}\selectfont Samuel Murillo }%
+{\fontsize{18}{0}\selectfont\itshape\color{subtitle}- Computer Engineer}
+
+\gap{15.5pt}
+{\color{secondary}
+  Almere, Netherlands\\
+  \href{mailto:contact@samuelmurillo.xyz}{contact@samuelmurillo.xyz}\\
+  \link{https://samuelmurillo.xyz/}{samuelmurillo.xyz}\\
+  \link{http://github.com/samuelm333}{github.com/samuelm333}\\
+  \link{https://www.linkedin.com/in/samuel-murillo}{linkedin.com/in/samuel-murillo}\par}
+
+
+%-------------------------------------------------------------------------------
+%	ABILITIES AND KNOWLEDGES
+%-------------------------------------------------------------------------------
+\cvsection{ABILITIES AND KNOWLEDGES}
+
+\gap{19.6pt}
+{\lineskiplimit=0pt % tabular rows need normal line spacing
+\begin{tabular}[t]{@{\hspace{0.8pt}}C{212pt}@{\hspace{19pt}}C{233pt}@{}}
+  \checkitem{Python, Bash, Go, C, Javascript and TypeScript programming languages} &
+  \checkitem{DevOps/SRE, Docker, Kubernetes, CI/CD, Terraform, Datadog, Ansible, AWS CDK, GitOps} \rowgap
+  \checkitem{Development of Command line interfaces (CLI), batch scripts, process automation} &
+  \checkitem{Serverless Framework, Zappa, Chalice} \rowgap
+  \checkitem{PostgreSQL, MySQL and MongoDB databases} &
+  \checkitem{Django, Flask and FastAPI web frameworks} \rowgap
+  \checkitem{Linux, Git, Ubuntu Server, Debian, Fedora, CentOS} &
+  \checkitem{Development of RESTful and GraphQL APIs} \rowgap
+  \checkitem{Developer Experience (DevExp)} &
+  \checkitem{AWS (Lambda, EC2, EKS, ECS, ECR, RDS, API Gateway, VPC, SQS, SNS, S3, IAM, Sagemaker, Athena)} \rowgap
+  \checkitem{English language (proficient)} &
+  \checkitem{Spanish language (native)}
+\end{tabular}\par}
+% Continue from the table's last line, not its first
+\prevdepth=\dp\strutbox
+
+
+%-------------------------------------------------------------------------------
+%	EXPERIENCE
+%-------------------------------------------------------------------------------
+\cvsection[33.7pt]{EXPERIENCE}
+
+\cventry
+  {Senior DevOps Engineer}
+  {Nike (Netherlands)}
+  {Dec 2022 - Present}
+  {Currently I work at Nike as an embedded DevOps in an AI/ML team, helping them to analyze, forecast and deliver business-critical information to stakeholders. My role includes developing and maintaining CI/CD and data pipelines, managing IAM and permissions, improving the DevExp of the team, taking part of a community of DevOps and alike, where we do knowledge transfer sessions, design architectures and paradigms, etc.}
+
+\cventry
+  {Platform Engineer}
+  {Getir (Netherlands)}
+  {March 2022 - Dec 2022}
+  {I joined Getir as a Platform Engineer, specifically to the Backbone team. I was responsible for the core cloud resources and services. I used the AWS CDK to manage the infrastructure.}
+
+\cventry
+  {Site Reliability Engineer}
+  {Spark Digital (Argentina)}
+  {October 2019 - March 2022}
+  {At Spark Digital I worked as a remote Site Reliability Engineer (SRE), where we used Infrastructure as code (IaC) tools to provision, deploy and monitor our services hosted in AWS and Heroku using Terraform, CircleCI and Datadog.}
+
+% The original moves the next entry to page 2, below two empty lines
+\newpage
+\vspace*{6.5pt}
+
+\cventry
+  {Senior Software Developer}
+  {Spark Digital (Argentina)}
+  {May 2019 - October 2019}
+  {I joined Spark Digital as a remote Sr Python Developer for a company in NY, USA. My main tasks were: design, develop, test and deploy microservices using the Serverless Framework in AWS.}
+
+\cventry
+  {Full Stack Web Developer and Python Scripting}
+  {ASAP Consulting (Argentina)}
+  {August 2018 - May 2019}
+  {I worked locally in Argentina in an insurance company called Experta as a Python developer through ASAP Consulting. I joined to assist with a migration, consisting in data extraction, refinement and insertion (ETL). Here I used my Linux, Python Bash and scripting skills to migrate hundreds of thousands of confidential documents from a legacy server to the current stack. I was also in charge of the development of several Web Apps and REST APIs for the company.}
+
+\cventry
+  {Freelance Full Stack Software Developer}
+  {Independent (Venezuela)}
+  {January 2017 - January 2019}
+  {I worked as an independent software developer with contracts in Canada, USA and UK. My main tasks were REST APIs development using Django and Postgres, DevOps and mobile development with NativeScript Angular. I participated as well in the decision process for software architecture and design.}
+
+
+%-------------------------------------------------------------------------------
+%	EDUCATION
+%-------------------------------------------------------------------------------
+\cvsection{EDUCATION}
+
+\cventry
+  {Computer Engineering}
+  {Universidad José Antonio Páez (Venezuela)}
+  {October 2013 - November 2017}
+  {}
+
+\end{document}
